@@ -2,6 +2,7 @@ import { CategoryButton } from "@/components/category-button";
 import { Header } from "@/components/header";
 import { Product } from "@/components/product";
 import { CATEGORIES, MENU } from "@/utils/data/products";
+import { Link } from "expo-router"; // NOVO
 import { useRef, useState } from "react";
 import { FlatList, SectionList, Text, View } from "react-native";
 
@@ -50,7 +51,19 @@ export default function Home() {
         sections={MENU}
         keyExtractor={(item) => item.id}
         stickySectionHeadersEnabled={false}
-        renderItem={({ item }) => <Product data={item} />}
+        renderItem={({ item }) => (
+          <Link
+            href={
+              {
+                pathname: "/product/[id]",
+                params: { id: String(item.id) },
+              } as any
+            }
+            asChild
+          >
+            <Product data={item} />
+          </Link>
+        )}
         renderSectionHeader={({ section: { title } }) => (
           <Text className="text-xl text-white font-heading mt-8 bm-3">
             {title}
