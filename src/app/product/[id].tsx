@@ -1,5 +1,8 @@
+import { Button } from "@/components/button"; // Novo
+import { LinkButton } from "@/components/link-button";
 import { PRODUCTS } from "@/utils/data/products";
 import { formarCurrency } from "@/utils/functions/format-currency";
+import { Feather } from "@expo/vector-icons"; // Novo
 import { useLocalSearchParams } from "expo-router";
 import { Image, Text, View } from "react-native";
 
@@ -17,11 +20,35 @@ export default function Product() {
       />
       <View className="p-5 mt-8 flex-1">
         <Text className="text-lime-400 text-2x1 font-heading my-2 ">
-            {formarCurrency(product.price)}
+          {formarCurrency(product.price)}
         </Text>
         <Text className="text-slate-400 font-body text-base leading-6 mb-6">
-            {product.description}
+          {product.description}
         </Text>
+
+        {/*---------------Ingrediente----------------*/}
+        {product.ingredients.map((ingredient) => (
+          <Text
+            key={ingredient}
+            className="text-slate-400 font-body text-base leading-6"
+          >
+            {"\u2022 "}
+            {ingredient}
+          </Text>
+        ))}
+      </View>
+
+      {/*---------------Button----------------*/}
+      <View className="p-5 pb-8 gap-5">
+        <Button>
+          <Button.Icon>
+            <Feather name="plus-circle" size={20} />
+          </Button.Icon>
+          <Button.Text>Adicionar a sacola</Button.Text>
+        </Button>
+
+        {/*---------------Button Voltar----------------*/}
+        <LinkButton tittle="Voltar ao cardápio" href="/" />
       </View>
     </View>
   );
